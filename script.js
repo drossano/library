@@ -23,3 +23,12 @@ function addBookToLibrary(title, author, pages, readStatus) {
   const newBook = new Book(title, author, pages, readStatus);
   myLibrary.push(newBook);
 }
+
+function displayLibrary(library) {
+  const table = document.querySelector("table");
+  library.forEach((book) => {
+    let row = table.insertRow();
+    var bookCell = row.insertCell;
+    bookCell.innerHTML = "hello";
+  });
+}
