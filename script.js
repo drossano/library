@@ -5,19 +5,23 @@ function Book(title, author, pages, readStatus) {
   this.author = author;
   this.pages = pages;
   this.readStatus = readStatus;
-  this.printStatus = function (status) {
-    if (status == true) {
-      return "read";
-    } else {
-      return "not read yet";
-    }
-  };
-  this.info = function () {
-    return `${title} by ${author}, ${pages} pages, ${this.printStatus(
-      readStatus
-    )}.`;
-  };
 }
+
+Book.prototype.printStatus = function (status) {
+  if (status == true) {
+    return "read";
+  } else {
+    return "not read yet";
+  }
+};
+
+Book.prototype.printStatus = function (status) {
+  if (status == true) {
+    return "read";
+  } else {
+    return "not read yet";
+  }
+};
 
 function addBookToLibrary(title, author, pages, readStatus) {
   const newBook = new Book(title, author, pages, readStatus);
@@ -25,10 +29,28 @@ function addBookToLibrary(title, author, pages, readStatus) {
 }
 
 function displayLibrary(library) {
-  const table = document.querySelector("table");
+  generateHeaders();
+  const table = document.getElementById("library_table");
   library.forEach((book) => {
-    let row = table.insertRow();
-    var bookCell = row.insertCell;
-    bookCell.innerHTML = "hello";
+    var row = table.insertRow();
+    var bookInfo = Object.values(book);
+    bookInfo.forEach((element) => {
+      var cell = row.insertCell();
+      cell.innerHTML = element;
+    });
   });
 }
+
+function generateHeaders() {
+  const headers = ["Title", "Author", "Pages", "Read"];
+  const table = document.getElementById("library_table");
+  var header = table.createTHead();
+  var headerRow = header.insertRow(0);
+  headers.forEach((element) => {
+    var headerCell = headerRow.insertCell();
+    headerCell.innerHTML = element;
+  });
+}
+
+addBookToLibrary("the hobbit", "tolkien", 100, true);
+addBookToLibrary("the expanse", "james sa corey", 1332, false);
