@@ -1,5 +1,7 @@
 let myLibrary = [];
 
+const bookProperties = document.getElementById("book-properties")
+
 function Book(title, author, pages, readStatus) {
   this.title = title;
   this.author = author;
