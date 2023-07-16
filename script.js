@@ -1,13 +1,13 @@
 let myLibrary = [];
 
-const bookProperties = document.getElementById("book-properties")
+const bookProperties = document.getElementById("book-properties");
 
 function Book(title, author, pages, readStatus) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.readStatus = readStatus;
-}
+};
 
 Book.prototype.printStatus = function (status) {
   if (status == true) {
@@ -28,11 +28,13 @@ Book.prototype.printStatus = function (status) {
 function addBookToLibrary(title, author, pages, readStatus) {
   const newBook = new Book(title, author, pages, readStatus);
   myLibrary.push(newBook);
-}
+  return displayLibrary(myLibrary);
+};
 
 function displayLibrary(library) {
-  generateHeaders();
   const table = document.getElementById("library_table");
+  table.innerHTML = ""
+  generateHeaders();
   library.forEach((book) => {
     var row = table.insertRow();
     var bookInfo = Object.values(book);
@@ -41,7 +43,7 @@ function displayLibrary(library) {
       cell.innerHTML = element;
     });
   });
-}
+};
 
 function generateHeaders() {
   const headers = ["Title", "Author", "Pages", "Read"];
@@ -52,7 +54,17 @@ function generateHeaders() {
     var headerCell = headerRow.insertCell();
     headerCell.innerHTML = element;
   });
-}
+};
+
+let bookForm = document.getElementById("book-properties");
+bookForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let title = document.getElementById("title").value;
+  let author = document.getElementById("author").value;
+  let pages = document.getElementById("pages").value;
+  let read = document.getElementById("read").value;
+  return addBookToLibrary(title, author, pages, read);
+});
 
 addBookToLibrary("the hobbit", "tolkien", 100, true);
 addBookToLibrary("the expanse", "james sa corey", 1332, false);
