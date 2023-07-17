@@ -66,5 +66,16 @@ bookForm.addEventListener("submit", (e) => {
   return addBookToLibrary(title, author, pages, read);
 });
 
+
+bookForm.style.display = "none";
+
+button = document.getElementById("add-button");
+
+button.addEventListener('click', () => {
+  bookForm.style.display = "inline"
+})
+
+
 addBookToLibrary("the hobbit", "tolkien", 100, true);
 addBookToLibrary("the expanse", "james sa corey", 1332, false);
+
