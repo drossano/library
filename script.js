@@ -7,7 +7,7 @@ function Book(title, author, pages, readStatus) {
   this.author = author;
   this.pages = pages;
   this.readStatus = readStatus;
-};
+}
 
 Book.prototype.printStatus = function (status) {
   if (status == true) {
@@ -29,11 +29,11 @@ function addBookToLibrary(title, author, pages, readStatus) {
   const newBook = new Book(title, author, pages, readStatus);
   myLibrary.push(newBook);
   return displayLibrary(myLibrary);
-};
+}
 
 function displayLibrary(library) {
   const table = document.getElementById("library_table");
-  table.innerHTML = ""
+  table.innerHTML = "";
   generateHeaders();
   library.forEach((book) => {
     var row = table.insertRow();
@@ -42,11 +42,16 @@ function displayLibrary(library) {
       var cell = row.insertCell();
       cell.innerHTML = element;
     });
+    var deleteCell = row.insertCell();
+    var deleteButton = document.createElement("input");
+    deleteButton.type = "button";
+    deleteButton.value = "Delete Book";
+    deleteCell.appendChild(deleteButton);
   });
-};
+}
 
 function generateHeaders() {
-  const headers = ["Title", "Author", "Pages", "Read"];
+  const headers = ["Title", "Author", "Pages", "Read", "Delete"];
   const table = document.getElementById("library_table");
   var header = table.createTHead();
   var headerRow = header.insertRow(0);
@@ -54,7 +59,7 @@ function generateHeaders() {
     var headerCell = headerRow.insertCell();
     headerCell.innerHTML = element;
   });
-};
+}
 
 let bookForm = document.getElementById("book-properties");
 bookForm.addEventListener("submit", (e) => {
@@ -66,16 +71,13 @@ bookForm.addEventListener("submit", (e) => {
   return addBookToLibrary(title, author, pages, read);
 });
 
-
 bookForm.style.display = "none";
 
 button = document.getElementById("add-button");
 
-button.addEventListener('click', () => {
-  bookForm.style.display = "inline"
-})
-
+button.addEventListener("click", () => {
+  bookForm.style.display = "inline";
+});
 
 addBookToLibrary("the hobbit", "tolkien", 100, true);
 addBookToLibrary("the expanse", "james sa corey", 1332, false);
-
