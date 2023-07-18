@@ -17,17 +17,10 @@ Book.prototype.printStatus = function (status) {
   }
 };
 
-Book.prototype.printStatus = function (status) {
-  if (status == true) {
-    return "read";
-  } else {
-    return "not read yet";
-  }
-};
-
 function addBookToLibrary(title, author, pages, readStatus) {
   const newBook = new Book(title, author, pages, readStatus);
   myLibrary.push(newBook);
+  newBook.index = myLibrary.indexOf(newBook);
   return displayLibrary(myLibrary);
 }
 
@@ -38,6 +31,7 @@ function displayLibrary(library) {
   library.forEach((book) => {
     var row = table.insertRow();
     var bookInfo = Object.values(book);
+    bookInfo.pop();
     bookInfo.forEach((element) => {
       var cell = row.insertCell();
       cell.innerHTML = element;
@@ -46,8 +40,15 @@ function displayLibrary(library) {
     var deleteButton = document.createElement("input");
     deleteButton.type = "button";
     deleteButton.value = "Delete Book";
+    deleteButton.addEventListener("click", function () {
+      deleteBook(book.index);
+    });
     deleteCell.appendChild(deleteButton);
   });
+}
+function deleteBook(bookIndex) {
+  delete myLibrary[bookIndex];
+  displayLibrary(myLibrary);
 }
 
 function generateHeaders() {
