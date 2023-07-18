@@ -32,10 +32,19 @@ function displayLibrary(library) {
     var row = table.insertRow();
     var bookInfo = Object.values(book);
     bookInfo.pop();
+    bookInfo.pop();
     bookInfo.forEach((element) => {
       var cell = row.insertCell();
       cell.innerHTML = element;
     });
+    var readCell = row.insertCell();
+    var readButton = document.createElement("input");
+    readButton.type = "button";
+    readButton.value = book.readStatus;
+    readButton.addEventListener("click", function () {
+      changeReadStatus(book.index);
+    });
+    readCell.appendChild(readButton);
     var deleteCell = row.insertCell();
     var deleteButton = document.createElement("input");
     deleteButton.type = "button";
@@ -48,6 +57,15 @@ function displayLibrary(library) {
 }
 function deleteBook(bookIndex) {
   delete myLibrary[bookIndex];
+  displayLibrary(myLibrary);
+}
+
+function changeReadStatus(bookIndex) {
+  if (myLibrary[bookIndex].readStatus == true) {
+    myLibrary[bookIndex].readStatus = false;
+  } else {
+    myLibrary[bookIndex].readStatus = true;
+  }
   displayLibrary(myLibrary);
 }
 
