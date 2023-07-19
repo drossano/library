@@ -10,3 +10,22 @@ table {
 td, th {
   border: 1px solid black;
 }
+
+
+#form {
+  display: flex;
+  width: 20em;
+  flex-direction: column;
+}
+
+.input{
+  width: 10em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+}
+
+.form-input {
+  display: flex;
+  justify-content: space-between;
+}
