@@ -29,32 +29,47 @@ function displayLibrary(library) {
   table.innerHTML = "";
   generateHeaders();
   library.forEach((book) => {
-    var row = table.insertRow();
-    var bookInfo = Object.values(book);
-    bookInfo.pop();
-    bookInfo.pop();
-    bookInfo.forEach((element) => {
-      var cell = row.insertCell();
-      cell.innerHTML = element;
-    });
-    var readCell = row.insertCell();
-    var readButton = document.createElement("input");
-    readButton.type = "button";
-    readButton.value = book.readStatus;
-    readButton.addEventListener("click", function () {
-      changeReadStatus(book.index);
-    });
-    readCell.appendChild(readButton);
-    var deleteCell = row.insertCell();
-    var deleteButton = document.createElement("input");
-    deleteButton.type = "button";
-    deleteButton.value = "Delete Book";
-    deleteButton.addEventListener("click", function () {
-      deleteBook(book.index);
-    });
-    deleteCell.appendChild(deleteButton);
+    var row = bookToTable(table, book);
+    createReadButton(row, book);
+    createDeleteButton(row, book);
   });
 }
+
+
+function createDeleteButton(row, book) {
+  var deleteCell = row.insertCell();
+  var deleteButton = document.createElement("input");
+  deleteButton.type = "button";
+  deleteButton.value = "Delete Book";
+  deleteButton.addEventListener("click", function () {
+    deleteBook(book.index);
+  });
+  deleteCell.appendChild(deleteButton);
+}
+
+function createReadButton(row, book) {
+  var readCell = row.insertCell();
+  var readButton = document.createElement("input");
+  readButton.type = "button";
+  readButton.value = book.readStatus;
+  readButton.addEventListener("click", function () {
+    changeReadStatus(book.index);
+  });
+  readCell.appendChild(readButton);
+}
+
+function bookToTable(table, book) {
+  var row = table.insertRow();
+  var bookInfo = Object.values(book);
+  bookInfo.pop();
+  bookInfo.pop();
+  bookInfo.forEach((element) => {
+    var cell = row.insertCell();
+    cell.innerHTML = element;
+  });
+  return row;
+}
+
 function deleteBook(bookIndex) {
   delete myLibrary[bookIndex];
   displayLibrary(myLibrary);
